@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
