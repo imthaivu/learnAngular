@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   DoCheck,
@@ -19,7 +20,9 @@ import { After } from 'v8';
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })
-export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
+export class RoomsComponent
+  implements OnInit, DoCheck, AfterViewInit, AfterViewChecked
+{
   hideRooms = false;
   hotelNameTest = 'Hotel Inventory App';
   hotelName$ = of(this.hotelNameTest); // AsyncPipe
@@ -33,9 +36,13 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
   constructor() {
     console.log('RoomsComponent constructor called');
   }
+
   ngAfterViewInit(): void {
     // throw new Error('Method not implemented.');
     this.headerComponent.title = 'Rooms View';
+  }
+  ngAfterViewChecked(): void {
+    // throw new Error('Method not implemented.');
   }
   ngDoCheck(): void {
     console.log(this.headerComponent);
