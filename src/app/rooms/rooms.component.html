@@ -1,0 +1,35 @@
+<app-header [title]="title"></app-header>
+<!-- Dùng UpperCasePipe -->
+<p [ngStyle]="{ color: 'green' }">
+  rooms works roi ne! {{ hotelNameTest | uppercase }}
+</p>
+
+<!-- Dùng DecimalPipe -->
+<div *ngIf="!hideRooms">
+  numberOfRooms:
+  <div>{{ numberOfRooms }}</div>
+  <app-rooms-list
+    [roomList]="roomList"
+    (selectedRoom)="selectRoom($event)"
+    [title]="title"
+  ></app-rooms-list>
+</div>
+
+<!-- Hiển thị số phòng còn lại với fallback -->
+{{ rooms.available }}
+
+<div *ngIf="rooms?.available"></div>
+
+<button (click)="toggle()">Toggle</button>
+
+<!-- AsyncPipe: giả định hotelName$ là Observable<string> -->
+<h4>Hotel name (AsyncPipe)</h4>
+<p>{{ hotelName$ | async }}</p>
+
+<!-- <div *ngIf="selectedRoom">
+  {{ selectedRoom | json }}
+</div> -->
+<div>
+  <button (click)="addRoom()">add Room</button>
+</div>
+<!-- event -->

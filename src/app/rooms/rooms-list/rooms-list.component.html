@@ -1,0 +1,66 @@
+<p>rooms-list works!</p>
+<h2>{{ title }}</h2>
+
+<!-- <a name="" id="" class="btn btn-primary" href="#" role="button">Button</a> -->
+
+<table ngClass="text-thai">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Even/Odd</th>
+      <th>Room Number</th>
+      <th>Room Type</th>
+      <th>Amenities</th>
+      <th>Price</th>
+      <th>Discount</th>
+      <th>Photos</th>
+      <th>Check-in</th>
+      <th>Check-out</th>
+      <th>Rating</th>
+      <th>Select Room</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      [ngClass]="e ? 'even' : 'odd'"
+      *ngFor="let room of roomList; let i = index; let e = even"
+    >
+      <!-- | slice : 0 : 3 -->
+      <td>{{ i }}</td>
+      <td>{{ e ? "Even" : "Odd" }}</td>
+      <td>{{ room.roomNumber }}</td>
+
+      <!-- UpperCasePipe -->
+      <td>{{ room.roomType | uppercase }}</td>
+
+      <!-- LowerCasePipe -->
+      <td>{{ room.amenities | lowercase }}</td>
+
+      <!-- CurrencyPipe -->
+      <td>{{ room.price | currency : "VND" : "symbol" : "1.0-0" }}</td>
+
+      <!-- PercentPipe (giả định room.discount là số 0.15) -->
+      <td>{{ room?.discount | percent : "1.0-2" }}</td>
+
+      <td>
+        <img style="width: 30px" [src]="room.photos" [alt]="room.roomType" />
+      </td>
+
+      <!-- DatePipe -->
+      <td>{{ room.checkinTime | date : "fullDate" }}</td>
+
+      <!-- DatePipe with custom format -->
+      <td>{{ room.checkoutTime | date : "dd/yyyy/MM" }}</td>
+      <td>{{ room.rating | number : "1.0-1" }}</td>
+      <td>
+        <button class="btn btn-primary" (click)="selectRoom(room)">
+          Select
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- JsonPipe: hiển thị danh sách phòng như JSON -->
+<!-- <h4>Debug JSON</h4>
+<pre>{{ roomList | json }}</pre> -->
