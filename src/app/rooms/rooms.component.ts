@@ -63,7 +63,7 @@ export class RoomsComponent implements OnInit {
     observable.next('user2');
     observable.next('user3');
     observable.complete();
-    observable.error('Error occurred');
+    // observable.error('Error occurred');
   });
 
   ngOnInit(): void {
