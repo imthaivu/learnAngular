@@ -110,6 +110,27 @@ export class RoomsComponent implements OnInit {
       rating: 0,
     };
     // this.roomList.push(room);
-    this.roomList = [...this.roomList, room]; // Cập nhật lại mảng để kích hoạt change detection
+    // this.roomList = [...this.roomList, room]; // Cập nhật lại mảng để kích hoạt change detection
+    this.roomService.addRoom(room).subscribe((data) => {
+      this.roomList = data;
+    });
+  }
+  editRoom() {
+    // throw new Error('Method not implemented.');
+    const room: RoomList = {
+      // roomNumber: (this.roomList.length + 1).toString(), // Tạo số phòng mới dựa trên độ dài mảng
+      roomNumber: '2', // Giữ nguyên số phòng đã chọn
+      roomType: 'New Room',
+      amenities: 'AC, TV, WiFi',
+      price: 100,
+      discount: 0,
+      photos: '',
+      checkinTime: new Date(),
+      checkoutTime: new Date(),
+      rating: 0,
+    };
+    this.roomService.editRoom(room).subscribe((data) => {
+      this.roomList = data;
+    });
   }
 }
