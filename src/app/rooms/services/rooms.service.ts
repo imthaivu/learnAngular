@@ -30,4 +30,12 @@ export class RoomsService {
       room
     );
   }
+  //Bạn dùng Observable<RoomList[]> vì backend trả về toàn bộ danh sách phòng mới
+
+  // Điều này giúp frontend cập nhật UI dễ hơn, mượt hơn
+  deleteRoom(id: string) {
+    return this.http.delete<RoomList[]>(
+      `http://localhost:3000/api/rooms/${id}`
+    );
+  }
 }

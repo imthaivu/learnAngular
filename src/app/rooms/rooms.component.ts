@@ -129,7 +129,14 @@ export class RoomsComponent implements OnInit {
       checkoutTime: new Date(),
       rating: 0,
     };
+    //update at server then update at UI roomlist
     this.roomService.editRoom(room).subscribe((data) => {
+      this.roomList = data;
+    });
+  }
+
+  deleteRoom() {
+    this.roomService.deleteRoom('2').subscribe((data) => {
       this.roomList = data;
     });
   }
