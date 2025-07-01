@@ -12,6 +12,7 @@ import { ContainerComponent } from './container/container.component';
 import { RoomsListComponent } from './rooms/rooms-list/rooms-list.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { CommonModule } from '@angular/common';
     ContainerComponent,
     RoomsListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, CommonModule], // Add HttpClientModule to imports
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, CommonModule, BrowserAnimationsModule], // Add HttpClientModule to imports
   providers: [
     {
       provide: APP_SERVICE_CONFIG,

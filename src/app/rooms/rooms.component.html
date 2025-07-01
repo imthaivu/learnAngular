@@ -1,15 +1,19 @@
 <app-header [title]="title"></app-header>
+<!-- {{ rooms$ | async | json }} -->
+
 <!-- Dùng UpperCasePipe -->
 <p [ngStyle]="{ color: 'green' }">
   rooms works roi ne! {{ hotelNameTest | uppercase }}
 </p>
-
+<h1>
+  {{ getError$ | async }}
+</h1>
 <!-- Dùng DecimalPipe -->
-<div *ngIf="!hideRooms">
+<div *ngIf="rooms$ | async as rooms">
   numberOfRooms:
   <div>{{ numberOfRooms }}</div>
   <app-rooms-list
-    [roomList]="roomList"
+    [roomList]="rooms"
     (selectedRoom)="selectRoom($event)"
     [title]="title"
   ></app-rooms-list>
@@ -36,3 +40,5 @@
   <button (click)="addRoom()">add Room</button>
 </div>
 <!-- event -->
+
+<h1>bytes loaded: {{ totalBytes }}</h1>

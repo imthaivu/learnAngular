@@ -17,7 +17,7 @@ import { RoomList } from '../rooms';
   styleUrls: ['./rooms-list.component.scss'],
 })
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() roomList: RoomList[] = []; //trans to child từ cha sang,  binding html
+  @Input() roomList: RoomList[] | null = []; //trans to child từ cha sang,  binding html
 
   @Input() title: string = '';
 

@@ -9,9 +9,17 @@ import {
 import { RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable, observable, of } from 'rxjs';
+import {
+  catchError,
+  Observable,
+  observable,
+  of,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-rooms',
@@ -19,7 +27,7 @@ import { RoomsListComponent } from './rooms-list/rooms-list.component';
   styleUrls: ['./rooms.component.scss'],
 })
 export class RoomsComponent implements OnInit {
-  hideRooms = false;
+  hideRooms = true;
   hotelNameTest = 'Hotel Inventory App';
   hotelName$ = of(this.hotelNameTest); // AsyncPipe
 
@@ -39,6 +47,10 @@ export class RoomsComponent implements OnInit {
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
     console.log('RoomsComponent destroyed');
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      console.log('Subscription to stream has been unsubscribed');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -55,6 +67,7 @@ export class RoomsComponent implements OnInit {
     // throw new Error('Method not implemented.');
     console.log('RoomsComponent ngDoCheck called');
   }
+
   title = 'Room  List';
   roomList: RoomList[] = [];
 
@@ -66,6 +79,20 @@ export class RoomsComponent implements OnInit {
     // observable.error('Error occurred');
   });
 
+  rooms$ = this.roomService.getRooms$.pipe(
+    catchError((error) => {
+      console.log('Error fetching rooms:', error);
+      this.error$.next(error.message || 'Unknown error occurred');
+      return of([]); // Trả về mảng rỗng nếu có lỗi
+    })
+  );
+
+  totalBytes = 0;
+  subscription!: Subscription;
+
+  error$ = new Subject<string>();
+
+  getError$ = this.error$.asObservable();
   ngOnInit(): void {
     this.stream.subscribe({
       next: (value) => console.log(value),
@@ -78,8 +105,28 @@ export class RoomsComponent implements OnInit {
 
     console.log('RoomsComponent initialized via ngOnInit');
     // ví dụ: gọi API ở đây
-    this.roomService.getRooms().subscribe((rooms) => {
+    this.roomService.getRooms$.subscribe((rooms) => {
       this.roomList = rooms;
+    });
+    this.roomService.getPhotos().subscribe((event) => {
+      switch (event.type) {
+        case HttpEventType.Sent: {
+          console.log('Request sent');
+          break;
+        }
+        case HttpEventType.ResponseHeader: {
+          console.log('Response header received');
+          break;
+        }
+        case HttpEventType.DownloadProgress: {
+          this.totalBytes += event.loaded;
+          break;
+        }
+        case HttpEventType.Response: {
+          console.log('Response received', event.body);
+          break;
+        }
+      }
     });
   }
   selectedRoom!: RoomList; // toi cam doan la no không có bị null á
