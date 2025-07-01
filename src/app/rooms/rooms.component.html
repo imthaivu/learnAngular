@@ -6,7 +6,8 @@
   rooms works roi ne! {{ hotelNameTest | uppercase }}
 </p>
 <h1>
-  {{ getError$ | async }}
+  <!-- {{ getError$ | async }} -->
+  numberOfRooms: {{ roomsCount$ | async }}
 </h1>
 <!-- Dùng DecimalPipe -->
 <div *ngIf="rooms$ | async as rooms">

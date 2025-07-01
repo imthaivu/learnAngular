@@ -11,6 +11,7 @@ import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
 import {
   catchError,
+  map,
   Observable,
   observable,
   of,
@@ -41,6 +42,9 @@ export class RoomsComponent implements OnInit {
   @ViewChildren(HeaderComponent)
   headerChildrenComponent!: QueryList<HeaderComponent>;
   // roomService = new RoomsService();
+  roomsCount$ = this.roomService.getRooms$.pipe(
+    map((rooms) => rooms.length) // Lấy số lượng phòng từ danh sách
+  );
   constructor(@SkipSelf() private roomService: RoomsService) {
     console.log('RoomsComponent constructor called');
   }

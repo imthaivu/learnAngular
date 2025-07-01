@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { RoomList } from '../rooms';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { shareReplay } from 'rxjs';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { shareReplay } from 'rxjs';
 })
 export class RoomsService {
   roomList: RoomList[] = [];
+  // headers = new HttpHeaders({ token: '1234567890abcdefg' });
   getRooms$ = this.http.get<RoomList[]>(`http://localhost:3000/api/rooms`).pipe(
     shareReplay(1) // shareReplay(1) để cache dữ liệu, tránh gọi lại API nhiều lần
   );
@@ -23,7 +24,7 @@ export class RoomsService {
     console.log('RoomsService initialized');
   }
   getRooms() {
-    return this.http.get<RoomList[]>(`http://localhost:3000/api/rooms`);
+    return this.http.get<RoomList[]>(`http://localhost:3000/api/rooms`, {});
   }
   addRoom(room: RoomList) {
     return this.http.post<RoomList[]>(`http://localhost:3000/api/rooms`, room);
