@@ -14,7 +14,11 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from './request.interceptor';
+import { InitService } from './init.service';
 
+function initFactory(initService: InitService) {
+  return () => initService.init(); // Initialize the service
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +45,12 @@ import { RequestInterceptor } from './request.interceptor';
       // useValue: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor, // Use the RequestInterceptor class
       multi: true, // Allow multiple interceptors
+    },
+    {
+      provide: 'APP_INITIALIZER', // Use APP_INITIALIZER to run the init function
+      useFactory: initFactory, // Factory function to initialize the service
+      deps: [InitService], // Dependencies for the factory function
+      multi: true, // Allow multiple initializers
     },
   ],
   bootstrap: [AppComponent],

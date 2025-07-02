@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { LoggerService } from './logger.service';
 import { localStorageToken } from './localstorage.token';
+import { InitService } from './init.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,7 +29,8 @@ export class AppComponent {
 
   constructor(
     @Optional() private loggerService: LoggerService,
-    @Inject(localStorageToken) private localStorage: any
+    @Inject(localStorageToken) private localStorage: any,
+    private initService: InitService // Inject InitService to initialize configuration
   ) {
     // loggerService.log('AppComponent constructor called');
     console.log('AppComponent constructor called');

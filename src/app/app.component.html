@@ -11,10 +11,14 @@
   <!-- <h1>Welcome User!</h1> -->
 </div>
 
-<app-container>
+<!-- <app-container>
   <app-rooms></app-rooms>
   <app-employee></app-employee>
   <h1>this is ng-container</h1>
-</app-container>
+</app-container> -->
 
 <!-- <app-rooms></app-rooms> -->
+
+<router-outlet></router-outlet>
+<a [routerLink]="'rooms'">Rooms</a>
+<a [routerLink]="'employee'">Employee</a>
