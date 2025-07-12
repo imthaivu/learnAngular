@@ -4,13 +4,15 @@ import { EmployeeComponent } from './employee/employee.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoomsBookingComponent } from './rooms/rooms-booking/rooms-booking.component';
+import { RoomAddComponent } from './rooms/room-add/room-add.component';
 
 const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
-  { path: 'rooms/:roomid', component: RoomsBookingComponent },
-  { path: 'rooms', component: RoomsComponent }, // Route with a parameter for room ID
-  { path: '', redirectTo: '/rooms', pathMatch: 'full' }, // Redirect to rooms by default
-  { path: '**', component: NotfoundComponent }, // Wildcard route to handle any undefined paths
+  { path: 'rooms/add', component: RoomAddComponent }, // <- Đặt trước
+  { path: 'rooms/:roomid', component: RoomsBookingComponent }, // <- Đặt sau
+  { path: 'rooms', component: RoomsComponent },
+  { path: '', redirectTo: '/rooms', pathMatch: 'full' },
+  { path: '**', component: NotfoundComponent },
 ];
 
 @NgModule({

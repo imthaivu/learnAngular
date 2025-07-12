@@ -25,11 +25,11 @@
 
 <div *ngIf="rooms?.available"></div>
 
-<button (click)="toggle()">Toggle</button>
+<butto ngClass="btn  btn-primary" (click)="toggle()"> Toggle </butto>
 
-<button (click)="editRoom()">editRoom</button>
+<button ngClass="btn  btn-primary" (click)="editRoom()">editRoom</button>
 
-<button (click)="deleteRoom()">delete Room</button>
+<button ngClass="btn  btn-primary" (click)="deleteRoom()">delete Room</button>
 <!-- AsyncPipe: giả định hotelName$ là Observable<string> -->
 <h4>Hotel name (AsyncPipe)</h4>
 <p>{{ hotelName$ | async }}</p>
